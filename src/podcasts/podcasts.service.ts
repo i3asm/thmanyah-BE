@@ -1,5 +1,9 @@
 import { Injectable } from '@nestjs/common';
 import { HttpService } from '@nestjs/axios';
+import { firstValueFrom, forkJoin, map } from 'rxjs';
+import { ItunesSearchListEpisode } from './DTO/itunesSearchListEpisode';
+import { ItunesSearchListPodcast } from './DTO/itunesSearchListPodcast';
+import { itunesSearchResponse } from './DTO/itunesSearchResponse';
 
 @Injectable()
 export class PodcastsService {
@@ -17,8 +21,37 @@ export class PodcastsService {
     return `This action returns a #${id} podcast`;
   }
 
-  searchFor(term: string) {
-    this.http.get(this.urls.itunes);
-    return `looking for a podcast with the term ${term}...`;
+  async searchFor(term: string, lang: string, limit: number): Promise<itunesSearchResponse> {
+    const episodes = this.http
+      .get<ItunesSearchListEpisode>(this.urls.itunes, {
+        params: {
+          term: term,
+          country: 'SA',
+          media: 'podcast',
+          entity: 'podcastEpisode',
+          attribute: ['titleTerm', 'authorTerm', 'artistTerm'],
+          lang: lang,
+          explicit: 'No',
+          limit: limit,
+        },
+      })
+      .pipe(map((res) => res.data));
+
+    const podcasts = this.http
+      .get<ItunesSearchListPodcast>(this.urls.itunes, {
+        params: {
+          term: term,
+          country: 'SA',
+          media: 'podcast',
+          entity: 'podcast',
+          attribute: ['titleTerm', 'authorTerm', 'artistTerm'],
+          lang: lang,
+          explicit: 'No',
+          limit: limit,
+        },
+      })
+      .pipe(map((res) => res.data));
+
+    return await firstValueFrom(forkJoin({ episodes: episodes, podcasts: podcasts }));
   }
 }
