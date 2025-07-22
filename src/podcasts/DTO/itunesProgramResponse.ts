@@ -1,6 +1,6 @@
 import { Expose } from 'class-transformer';
 
-export class ItunesPodcastResponse {
+export class ItunesProgramResponse {
   @Expose()
   wrapperType: string;
   @Expose()

@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { HttpService } from '@nestjs/axios';
 import { firstValueFrom, forkJoin, map } from 'rxjs';
 import { ItunesSearchListEpisode } from './DTO/itunesSearchListEpisode';
-import { ItunesSearchListPodcast } from './DTO/itunesSearchListPodcast';
+import { ItunesSearchListProgram } from './DTO/itunesSearchListProgram';
 import { itunesSearchResponse } from './DTO/itunesSearchResponse';
 
 @Injectable()
@@ -37,8 +37,8 @@ export class PodcastsService {
       })
       .pipe(map((res) => res.data));
 
-    const podcasts = this.http
-      .get<ItunesSearchListPodcast>(this.urls.itunes, {
+    const programs = this.http
+      .get<ItunesSearchListProgram>(this.urls.itunes, {
         params: {
           term: term,
           country: 'SA',
@@ -52,6 +52,6 @@ export class PodcastsService {
       })
       .pipe(map((res) => res.data));
 
-    return await firstValueFrom(forkJoin({ episodes: episodes, podcasts: podcasts }));
+    return await firstValueFrom(forkJoin({ episodes: episodes, programs: programs }));
   }
 }

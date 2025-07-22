@@ -1,15 +1,15 @@
 import { Expose, Type } from 'class-transformer';
 import { ItunesSearchListEpisode } from './itunesSearchListEpisode';
-import { ItunesSearchListPodcast } from './itunesSearchListPodcast';
+import { ItunesSearchListProgram } from './itunesSearchListProgram';
 
 export class itunesSearchResponse {
   @Type(() => ItunesSearchListEpisode)
   @Expose()
   episodes: ItunesSearchListEpisode;
 
-  @Type(() => ItunesSearchListPodcast)
+  @Type(() => ItunesSearchListProgram)
   @Expose()
-  podcasts: ItunesSearchListPodcast;
+  programs: ItunesSearchListProgram;
 }
 
 // export class itunesSearchResponse {
