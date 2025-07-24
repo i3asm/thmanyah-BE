@@ -1,64 +1,80 @@
-import { Column, PrimaryColumn } from 'typeorm';
+import { Column, Entity, PrimaryColumn } from 'typeorm';
+import { ItunesProgramResponse } from '../DTO/itunesProgramResponse';
 
+@Entity()
 export class Program {
-  @PrimaryColumn()
+  @PrimaryColumn('bigint')
   trackId: number;
   @Column()
   wrapperType: string;
-  @PrimaryColumn()
+  @Column()
   kind: string;
-  @PrimaryColumn()
+  @Column('bigint')
   collectionId: number;
-  @PrimaryColumn()
+  @Column()
   artistName: string;
-  @PrimaryColumn()
+  @Column()
   collectionName: string;
-  @PrimaryColumn()
+  @Column()
   trackName: string;
-  @PrimaryColumn()
+  @Column()
   collectionCensoredName: string;
-  @PrimaryColumn()
+  @Column()
   trackCensoredName: string;
-  @PrimaryColumn()
+  @Column()
   collectionViewUrl: string;
-  @PrimaryColumn()
+  @Column()
   feedUrl: string;
-  @PrimaryColumn()
+  @Column()
   trackViewUrl: string;
-  @PrimaryColumn()
+  @Column()
   artworkUrl30: string;
-  @PrimaryColumn()
+  @Column()
   artworkUrl60: string;
-  @PrimaryColumn()
+  @Column()
   artworkUrl100: string;
-  @PrimaryColumn()
+  @Column()
   collectionPrice: number;
-  @PrimaryColumn()
+  @Column()
   trackPrice: number;
-  @PrimaryColumn()
+  @Column()
   collectionHdPrice: number;
-  @PrimaryColumn()
+  @Column()
   releaseDate: Date;
-  @PrimaryColumn()
+  @Column()
   collectionExplicitness: string;
-  @PrimaryColumn()
+  @Column()
   trackExplicitness: string;
-  @PrimaryColumn()
+  @Column()
   trackCount: number;
-  @PrimaryColumn()
+  @Column()
   trackTimeMillis: number;
-  @PrimaryColumn()
+  @Column()
   country: string;
-  @PrimaryColumn()
+  @Column()
   currency: string;
-  @PrimaryColumn()
+  @Column()
   primaryGenreName: string;
-  @PrimaryColumn()
+  @Column()
   contentAdvisoryRating: string;
-  @PrimaryColumn()
+  @Column()
   artworkUrl600: string;
+  @Column()
+  genreIds: string;
+  // @Column()
+  // genres: string[];
+
+  public static fromDto(itunesProgramResponse: ItunesProgramResponse): Program {
+    return {
+      ...itunesProgramResponse,
+    };
+  }
+}
+
+@Entity()
+export class Genre {
   @PrimaryColumn()
-  genreIds: string[];
-  @PrimaryColumn()
-  genres: string[];
+  id: number;
+  @Column()
+  name: string;
 }
