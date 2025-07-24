@@ -11,9 +11,10 @@ async function bootstrap() {
 
   const DB_PASSWORD = process.env.DB_PASSWORD || 3000;
   const DB_USER = process.env.DB_USER || 3000;
-  const DB_SCHEMA = process.env.DB_SCHEMA || 3000;
+  const DB_NAME = process.env.DB_NAME || 3000;
   const DB_HOST = process.env.DB_HOST || 3000;
-  console.log(`Listening on port ${port}, ${DB_USER}, ${DB_PASSWORD}, ${DB_SCHEMA}, ${DB_HOST}`);
+  const DB_PORT = process.env.DB_PORT || 3000;
+  console.log(`starting ${port}, ${DB_USER}, ${DB_PASSWORD}, ${DB_NAME}, ${DB_HOST}, ${DB_PORT}`);
 }
 
 bootstrap();

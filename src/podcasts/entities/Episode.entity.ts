@@ -1,11 +1,10 @@
 import { Column, Entity, PrimaryColumn } from 'typeorm';
+import { ItunesEpisodeResponse } from '../DTO/itunesEpisodeResponse';
 
 @Entity()
 export class Episode {
-  @PrimaryColumn()
+  @PrimaryColumn('bigint')
   trackId: number;
-  @Column()
-  artistIds: any[];
   @Column()
   artworkUrl600: string;
   @Column()
@@ -19,8 +18,6 @@ export class Episode {
   @Column()
   artworkUrl160: string;
   @Column()
-  genres: Genre[];
-  @Column()
   episodeGuid: string;
   @Column()
   trackName: string;
@@ -32,7 +29,7 @@ export class Episode {
   shortDescription: string;
   @Column()
   closedCaptioning: string;
-  @Column()
+  @Column('bigint')
   collectionId: number;
   @Column()
   collectionName: string;
@@ -54,9 +51,10 @@ export class Episode {
   trackViewUrl: string;
   @Column()
   episodeUrl: string;
-}
 
-export class Genre {
-  name: string;
-  id: string;
+  public static fromDto(itunesEpisodeResponse: ItunesEpisodeResponse): Episode {
+    return {
+      ...itunesEpisodeResponse,
+    };
+  }
 }
