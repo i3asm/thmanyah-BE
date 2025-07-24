@@ -1,4 +1,5 @@
 import { Expose } from 'class-transformer';
+import { Program } from '../entities/Program.entity';
 
 export class ItunesProgramResponse {
   @Expose()
@@ -32,11 +33,9 @@ export class ItunesProgramResponse {
   @Expose()
   artworkUrl100: string;
   @Expose()
-  @Expose()
   collectionPrice: number;
   @Expose()
   trackPrice: number;
-  @Expose()
   @Expose()
   collectionHdPrice: number;
   @Expose()
@@ -62,7 +61,8 @@ export class ItunesProgramResponse {
   @Expose()
   artworkUrl600: string;
   @Expose()
-  genreIds: string[];
+  genreIds: string;
   @Expose()
   genres: string[];
+
 }

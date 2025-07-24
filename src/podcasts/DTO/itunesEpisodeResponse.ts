@@ -1,5 +1,5 @@
 import { Expose, Type } from 'class-transformer';
-import { Genre } from '../entities/Episode.entity';
+import { Genre } from '../entities/Program.entity';
 
 @Expose()
 export class ItunesEpisodeResponse {

@@ -2,7 +2,7 @@ import { Expose, Type } from 'class-transformer';
 import { ItunesSearchListEpisode } from './itunesSearchListEpisode';
 import { ItunesSearchListProgram } from './itunesSearchListProgram';
 
-export class itunesSearchResponse {
+export class ItunesSearchResponse {
   @Type(() => ItunesSearchListEpisode)
   @Expose()
   episodes: ItunesSearchListEpisode;
@@ -10,6 +10,10 @@ export class itunesSearchResponse {
   @Type(() => ItunesSearchListProgram)
   @Expose()
   programs: ItunesSearchListProgram;
+
+  public static toDto(itunesSearchResponse: ItunesSearchResponse): ItunesSearchResponse {
+    return { ...itunesSearchResponse };
+  }
 }
 
 // export class itunesSearchResponse {
