@@ -9,6 +9,8 @@ export interface IPodcastRepository {
 
 @Injectable()
 export class PodcastRepository implements IPodcastRepository {
+  //TODO: add caching from postgres
+
   search(term: string, lang: string, limit: number): Promise<itunesSearchResponse> {
     throw new Error('Method not implemented.');
   }
