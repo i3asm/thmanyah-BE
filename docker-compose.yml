@@ -9,6 +9,7 @@ services:
       DB_NAME: ${DB_NAME}
       DB_HOST: db
       DB_PORT: ${DB_PORT}
+      NODE_ENV: production
 
     env_file:
       - .env
