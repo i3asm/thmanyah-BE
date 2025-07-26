@@ -10,6 +10,11 @@ async function bootstrap() {
   if (process.env.NODE_ENV == 'development') {
     app.enableCors();
   }
+  app.enableCors({
+    origin: ['https://thmanyah.i3asm.xyz'],
+    methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH'],
+    credentials: true,
+  });
   await app.listen(port, '0.0.0.0');
 
   const DB_PASSWORD = process.env.DB_PASSWORD || 3000;
