@@ -9,7 +9,7 @@ export class PodcastsController {
   constructor(private readonly podcastsService: PodcastsService) {}
 
   @Get('search')
-  async search(@Query('term') term: string, @Query('lang') lang: string = 'ar_sa', @Query('limit') limit: number = 15) {
+  async search(@Query('term') term: string, @Query('lang') lang: string = 'ar_sa', @Query('limit') limit: number = 50) {
     const plainResult = await this.podcastsService.searchFor(term, lang, limit);
     return plainToInstance(ItunesSearchResponse, plainResult, { excludeExtraneousValues: true });
   }

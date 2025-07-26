@@ -7,6 +7,9 @@ async function bootstrap() {
   const app = await NestFactory.create<NestFastifyApplication>(AppModule, new FastifyAdapter({ logger: true }));
 
   const port = process.env.PORT || 3030;
+  if (process.env.NODE_ENV == 'development') {
+    app.enableCors();
+  }
   await app.listen(port, '0.0.0.0');
 
   const DB_PASSWORD = process.env.DB_PASSWORD || 3000;
