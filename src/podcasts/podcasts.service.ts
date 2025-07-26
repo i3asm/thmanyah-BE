@@ -7,7 +7,7 @@ import { ItunesSearchResponse } from './DTO/itunesSearchResponse';
 import { Program } from './entities/Program.entity';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Episode } from './entities/Episode.entity';
-import { Repository } from 'typeorm';
+import { MoreThan, Repository } from 'typeorm';
 import { ItunesProgramResponse } from './DTO/itunesProgramResponse';
 import { ItunesEpisodeResponse } from './DTO/itunesEpisodeResponse';
 import { Cache } from './entities/Cache.entity';
@@ -37,7 +37,6 @@ export class PodcastsService {
 
   async searchFor(term: string, lang: string, limit: number): Promise<ItunesSearchResponse> {
     let episodesObservable: Observable<ItunesSearchListEpisode>;
-
     const cachedEpisodesResponse = await this.getCachedResponse(`itunes-episodes-${term}-${lang}-${limit}`);
 
     if (cachedEpisodesResponse !== null) {
@@ -68,9 +67,9 @@ export class PodcastsService {
       });
     }
 
+    let programsObservable: Observable<ItunesSearchListProgram>;
     const cachedProgramsResponse = await this.getCachedResponse(`itunes-programs-${term}-${lang}-${limit}`);
 
-    let programsObservable: Observable<ItunesSearchListProgram>;
     if (cachedProgramsResponse !== null) {
       programsObservable = of(JSON.parse(cachedProgramsResponse.json) as ItunesSearchListProgram);
     } else {
@@ -108,13 +107,13 @@ export class PodcastsService {
       key: key,
       json: JSON.stringify(response),
       created_at: new Date(),
-      expires_at: new Date(),
+      expires_at: new Date(Date.now() + 30 * 60 * 1000),
     };
     await this.cacheRepository.save(cache);
   }
 
   private async getCachedResponse(key: string) {
-    return await this.cacheRepository.findOneBy({ key: key });
+    return await this.cacheRepository.findOneBy({ key: key, expires_at: MoreThan(new Date()) });
   }
 
   private async savePrograms(programs: ItunesProgramResponse[]) {
